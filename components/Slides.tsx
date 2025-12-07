@@ -1,5 +1,5 @@
 import React from 'react';
-import { Database, Zap, Bot, ArrowRight, BarChart, Users, MessageSquare, MapPin, Filter, CheckCircle, MousePointerClick, PhoneCall, Trash2, Tag } from 'lucide-react';
+import { Database, Zap, Bot, ArrowRight, BarChart, Users, MessageSquare, MapPin, Filter, CheckCircle, MousePointerClick, PhoneCall, Trash2, Tag, Mail } from 'lucide-react';
 
 // Shared Slide Layout
 const SlideContainer: React.FC<{ children: React.ReactNode; className?: string }> = ({ children, className = "" }) => (
@@ -8,10 +8,10 @@ const SlideContainer: React.FC<{ children: React.ReactNode; className?: string }
   </div>
 );
 
-export const IntroSlide = () => (
+export const IntroSlide: React.FC<{ onStart?: () => void }> = ({ onStart }) => (
   <SlideContainer className="text-center relative overflow-hidden">
     <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-center opacity-20"></div>
-    <div className="relative z-10 animate-fade-in-up">
+    <div className="relative z-10 animate-fade-in-up flex flex-col items-center">
       <div className="inline-block px-4 py-1.5 border border-luxury-gold/50 rounded-full text-luxury-gold text-sm font-medium tracking-widest mb-6 bg-black/50 backdrop-blur-sm">
         AGENCY GROWTH SYSTEM V2.0
       </div>
@@ -21,10 +21,21 @@ export const IntroSlide = () => (
       <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-10">
         Stop relying on digital business cards. Start using a high-conversion acquisition engine powered by Automation & AI.
       </p>
+      
+      {onStart && (
+        <button 
+          onClick={onStart}
+          className="group relative bg-luxury-gold text-luxury-900 px-8 py-4 rounded-full font-bold text-lg tracking-wide hover:bg-white hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.3)] flex items-center gap-3 mb-8"
+        >
+          <span>Start Presentation</span>
+          <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+        </button>
+      )}
+
       <div className="flex justify-center gap-4">
         <div className="flex items-center gap-2 text-white/50 text-sm uppercase tracking-widest">
           <span className="w-2 h-2 bg-luxury-gold rounded-full animate-pulse"></span>
-          Press Right Arrow to Start
+          Use Arrow Keys or Swipe
         </div>
       </div>
     </div>
@@ -206,8 +217,9 @@ export const AutomationSlide = () => (
           <div className="space-y-3">
              <div className="flex items-center gap-3">
                 <span className="text-purple-400 font-bold w-12 text-right">IF:</span>
-                <div className="px-3 py-2 bg-white/5 rounded-md border border-white/10 text-white">
-                   User is a <span className="text-blue-300 font-bold">New Lead</span>
+                <div className="px-3 py-2 bg-white/5 rounded-md border border-white/10 text-white flex items-center gap-2">
+                   <span>User is a <span className="text-blue-300 font-bold">New Lead</span></span>
+                   <span className="text-gray-500 text-xs italic">(part of our automation)</span>
                 </div>
              </div>
              <div className="flex items-start gap-3">
@@ -261,97 +273,44 @@ const StepCard = ({ icon, step, title, desc }: { icon: React.ReactNode, step: st
   </div>
 );
 
-export const AiSlide = () => (
-  <SlideContainer className="bg-black text-center">
+export const FutureScalingSlide = () => (
+  <SlideContainer className="bg-gradient-to-br from-gray-900 to-black text-center">
     <div className="max-w-4xl w-full">
-      <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-full text-blue-300 text-sm font-medium mb-8">
-        <Bot className="w-4 h-4" /> Powered by Google Gemini
+      <div className="inline-block px-4 py-1.5 border border-purple-500/30 rounded-full text-purple-400 text-sm font-medium tracking-widest mb-8 bg-purple-500/10">
+        GROWTH ROADMAP
       </div>
-      
-      <h2 className="text-5xl md:text-7xl font-serif text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-white mb-8">
-        Your AI Sales Assistant
-      </h2>
-      
-      <p className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
-        While you sleep, the AI agent qualifies leads on your site. It asks the right questions, understands context, and books appointments.
+      <h2 className="text-5xl md:text-6xl font-serif text-white mb-6">Future Scaling</h2>
+      <p className="text-xl text-gray-400 mb-16 max-w-2xl mx-auto">
+        Once your foundation is built, we can activate advanced features to multiply your results.
       </p>
 
-      <div className="grid md:grid-cols-2 gap-8 text-left">
-        <AiFeature 
-          title="24/7 Availability"
-          desc="Never miss a lead because it's after hours. The AI is always on."
+      <div className="grid md:grid-cols-2 gap-8">
+        <ScalingCard 
+          icon={<Bot className="w-8 h-8 text-blue-400" />}
+          title="AI Agents"
+          tag="COMING SOON"
+          desc="We can deploy sophisticated AI in the future to handle conversations, qualify leads, and book appointments 24/7."
         />
-        <AiFeature 
-          title="Natural Conversation"
-          desc="Uses LLMs to understand nuance, not just basic button clicks."
-        />
-        <AiFeature 
-          title="Lead Qualification"
-          desc="Determines budget, timeline, and intent before handing off to you."
-        />
-        <AiFeature 
-          title="Instant Handoff"
-          desc="Seamlessly transfers hot leads to human agents when complex issues arise."
+        <ScalingCard 
+          icon={<Mail className="w-8 h-8 text-green-400" />}
+          title="Email Marketing"
+          tag="READY TO DEPLOY"
+          desc="Professional, high-converting email templates and sequences designed to nurture leads into clients automatically."
         />
       </div>
     </div>
   </SlideContainer>
 );
 
-const AiFeature = ({ title, desc }: { title: string, desc: string }) => (
-  <div className="flex gap-4 bg-white/5 p-6 rounded-xl border border-white/10">
-    <div className="mt-1">
-      <MessageSquare className="w-5 h-5 text-purple-400" />
+const ScalingCard = ({ icon, title, tag, desc }: any) => (
+  <div className="bg-white/5 border border-white/10 p-8 rounded-2xl text-left hover:bg-white/10 transition-colors group">
+    <div className="flex justify-between items-start mb-6">
+      <div className="p-3 bg-white/5 rounded-xl group-hover:scale-110 transition-transform">{icon}</div>
+      <span className={`text-[10px] font-bold tracking-widest px-2 py-1 rounded border ${tag === 'COMING SOON' ? 'border-blue-500/30 text-blue-400 bg-blue-500/10' : 'border-green-500/30 text-green-400 bg-green-500/10'}`}>
+        {tag}
+      </span>
     </div>
-    <div>
-      <h3 className="text-white font-bold mb-1">{title}</h3>
-      <p className="text-gray-400 text-sm">{desc}</p>
-    </div>
+    <h3 className="text-2xl font-bold text-white mb-3">{title}</h3>
+    <p className="text-gray-400 leading-relaxed">{desc}</p>
   </div>
-);
-
-export const OfferSlide = () => (
-  <SlideContainer className="bg-luxury-900 text-center relative overflow-hidden">
-     <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-luxury-gold/10 via-transparent to-transparent"></div>
-    <div className="max-w-4xl w-full relative z-10">
-      <h2 className="text-5xl font-serif text-white mb-6">Ready to Scale?</h2>
-      <p className="text-xl text-gray-400 mb-12">
-        We implement the full system: Landing Page + GHL Setup + AI Agent.
-      </p>
-
-      <div className="bg-white text-luxury-900 rounded-2xl p-10 max-w-md mx-auto shadow-2xl relative">
-        <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-luxury-gold text-luxury-900 px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase">
-          Full Package
-        </div>
-        <div className="text-center mb-8">
-          <div className="text-sm text-gray-500 uppercase tracking-wide mb-2">One-Time Setup</div>
-          <div className="text-5xl font-serif font-bold">$2,997</div>
-          <div className="text-gray-400 text-sm mt-2">+ $297/mo for software</div>
-        </div>
-        
-        <ul className="space-y-4 text-left mb-8">
-          <li className="flex items-center gap-3">
-            <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-xs">✓</div>
-            Custom Landing Page
-          </li>
-          <li className="flex items-center gap-3">
-            <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-xs">✓</div>
-            Full GHL Automation Setup
-          </li>
-          <li className="flex items-center gap-3">
-            <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-xs">✓</div>
-            Gemini AI Agent Integration
-          </li>
-          <li className="flex items-center gap-3">
-            <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-xs">✓</div>
-            30 Days of Support
-          </li>
-        </ul>
-
-        <button className="w-full py-4 bg-luxury-900 text-white rounded-xl font-bold hover:bg-luxury-800 transition-colors flex items-center justify-center gap-2">
-          Get Started <ArrowRight className="w-4 h-4" />
-        </button>
-      </div>
-    </div>
-  </SlideContainer>
 );
